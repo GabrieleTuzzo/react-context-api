@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DefaultLayout from './Layout/DefaultLayout';
 import HomePage from './pages/HomePage/HomePage';
 import ChiSiamo from './pages/ChiSiamo';
-import PostList from './pages/PostList';
+import PostList from './pages/PostsPage';
 import DettaglioPost from './pages/DettaglioPost/DettaglioPost';
 import PostsContext from './contexts/PostsContext';
 import { useState, useEffect } from 'react';
@@ -30,7 +30,7 @@ function App() {
                 <Routes>
                     <Route element={<DefaultLayout />}>
                         <Route index element={<HomePage />} />
-                        <Route path="/chisiamo" element={<ChiSiamo />} />
+                        <Route path="/chi-siamo" element={<ChiSiamo />} />
                         <Route path="/posts">
                             <Route index element={<PostList />}></Route>
                             <Route

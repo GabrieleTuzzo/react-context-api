@@ -2,11 +2,10 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Button from '../components/Button/Button';
 import FormOverlay from '../components/FormOverlay/FormOverlay';
-import Card from '../components/Card/Card';
-import { Link } from 'react-router-dom';
+import PostsList from '../components/PostsList';
 import { useContext } from 'react';
 import PostsContext from '../contexts/PostsContext';
-import { BASIC_URI, SERVER_IMG_DIR } from '../config/URI';
+import { BASIC_URI } from '../config/URI';
 
 export default function PostList() {
     const { drawnPosts, setPosts } = useContext(PostsContext);
@@ -89,35 +88,7 @@ export default function PostList() {
                             onClick={handleOverlay}
                         ></Button>
                     </div>
-                    {drawnPosts &&
-                        drawnPosts.map((post) => {
-                            return (
-                                post.published && (
-                                    <div key={post.id} className="col-6">
-                                        <Link
-                                            to={`http://localhost:5173/posts/${post.id}`}
-                                        >
-                                            <Card
-                                                title={post.title}
-                                                image={
-                                                    post.image
-                                                        ? BASIC_URI +
-                                                          SERVER_IMG_DIR +
-                                                          post.image
-                                                        : ''
-                                                }
-                                                content={post.content}
-                                                tags={post.tags}
-                                                published={post.published}
-                                                callback={() =>
-                                                    handleDelete(post.id)
-                                                }
-                                            ></Card>
-                                        </Link>
-                                    </div>
-                                )
-                            );
-                        })}
+                    <PostsList></PostsList>
                 </div>
             </div>
         </main>
