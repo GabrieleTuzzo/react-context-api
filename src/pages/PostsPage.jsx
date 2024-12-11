@@ -51,20 +51,6 @@ export default function PostList() {
         setShowOverlay(false);
     };
 
-    const handleDelete = (id) => {
-        const updatedPosts = drawnPosts.filter((post) => post.id !== id);
-        setPosts([...updatedPosts]);
-
-        axios
-            .delete(BASIC_URI + 'posts' + `/${id}`)
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-
     const handleOverlay = () => {
         setShowOverlay(true);
     };

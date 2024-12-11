@@ -22,10 +22,24 @@ function App() {
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [drawnPosts]);
+
+    const handleDelete = (id) => {
+        axios
+            .delete(BASIC_URI + 'posts' + `/${id}`)
+            .then((response) => {
+                console.log(response);
+                setPosts((drawnPosts) =>
+                    drawnPosts.filter((post) => post.id !== id)
+                );
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
 
     return (
-        <PostsContext.Provider value={{ drawnPosts, setPosts }}>
+        <PostsContext.Provider value={{ drawnPosts, setPosts, handleDelete }}>
             <BrowserRouter>
                 <Routes>
                     <Route element={<DefaultLayout />}>

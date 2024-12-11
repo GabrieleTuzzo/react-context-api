@@ -1,11 +1,16 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { redirect, useNavigate, useParams } from 'react-router-dom';
 import style from './DettaglioPost.module.css';
+import { BASIC_URI } from '../../config/URI';
+import { useContext } from 'react';
+import PostsContext from '../../contexts/PostsContext';
 
 export default function DettaglioPost() {
-    const BASIC_URI = 'http://localhost:3000/';
     const params = useParams();
+    const { handleDelete } = useContext(PostsContext);
+    const navigate = useNavigate();
+
     const [post, setPost] = useState(null);
     useEffect(() => {
         axios
@@ -38,6 +43,16 @@ export default function DettaglioPost() {
                         ))}
                     </div>
                     <p>{post.content}</p>
+                    <div>
+                        <button
+                            onClick={() => {
+                                handleDelete(params.id);
+                                navigate(-1);
+                            }}
+                        >
+                            Elimina post
+                        </button>
+                    </div>
                 </div>
             ) : (
                 <p>Loading...</p>

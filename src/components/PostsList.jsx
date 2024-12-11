@@ -13,7 +13,7 @@ export default function PostsList() {
             return (
                 post.published && (
                     <div key={post.id} className="col-6">
-                        <Link to={`http://localhost:5173/posts/${post.id}`}>
+                        <Link to={`/posts/${post.id}`}>
                             <Card
                                 title={post.title}
                                 image={
@@ -26,7 +26,6 @@ export default function PostsList() {
                                 content={post.content}
                                 tags={post.tags}
                                 published={post.published}
-                                callback={() => handleDelete(post.id)}
                             ></Card>
                         </Link>
                     </div>
