@@ -5,21 +5,43 @@ import HomePage from './pages/HomePage/HomePage';
 import ChiSiamo from './pages/ChiSiamo';
 import PostList from './pages/PostList';
 import DettaglioPost from './pages/DettaglioPost/DettaglioPost';
+import PostsContext from './contexts/PostsContext';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { BASIC_URI } from './config/URI';
 
 function App() {
+    const [drawnPosts, setPosts] = useState();
+
+    useEffect(() => {
+        axios
+            .get(BASIC_URI + 'posts')
+            .then((response) => {
+                setPosts(response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }, []);
+
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route element={<DefaultLayout />}>
-                    <Route index element={<HomePage />} />
-                    <Route path="/chisiamo" element={<ChiSiamo />} />
-                    <Route path="/posts">
-                        <Route index element={<PostList />}></Route>
-                        <Route path=":id" element={<DettaglioPost />}></Route>
+        <PostsContext.Provider value={{ drawnPosts, setPosts }}>
+            <BrowserRouter>
+                <Routes>
+                    <Route element={<DefaultLayout />}>
+                        <Route index element={<HomePage />} />
+                        <Route path="/chisiamo" element={<ChiSiamo />} />
+                        <Route path="/posts">
+                            <Route index element={<PostList />}></Route>
+                            <Route
+                                path=":id"
+                                element={<DettaglioPost />}
+                            ></Route>
+                        </Route>
                     </Route>
-                </Route>
-            </Routes>
-        </BrowserRouter>
+                </Routes>
+            </BrowserRouter>
+        </PostsContext.Provider>
     );
 }
 

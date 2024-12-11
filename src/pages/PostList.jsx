@@ -4,24 +4,14 @@ import Button from '../components/Button/Button';
 import FormOverlay from '../components/FormOverlay/FormOverlay';
 import Card from '../components/Card/Card';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import PostsContext from '../contexts/PostsContext';
+import { BASIC_URI, SERVER_IMG_DIR } from '../config/URI';
 
 export default function PostList() {
+    const { drawnPosts, setPosts } = useContext(PostsContext);
     const [showOverlay, setShowOverlay] = useState(false);
-    const [drawnPosts, setPosts] = useState();
     const [tags, setTags] = useState([]);
-    const BASIC_URI = 'http://localhost:3000/';
-    const SERVER_IMG_DIR = 'imgs/posts/';
-
-    useEffect(() => {
-        axios
-            .get(BASIC_URI + 'posts')
-            .then((response) => {
-                setPosts(response.data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }, []);
 
     useEffect(() => {
         const newTags = [];
